@@ -1,0 +1,27 @@
+{
+  "name": "payment-remainder",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AhmadShahid/payment-remainder.git"
+  },
+  "keywords": [
+    "payment",
+    "remainder"
+  ],
+  "author": "Shahid Ahmad",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AhmadShahid/payment-remainder/issues"
+  },
+  "homepage": "https://github.com/AhmadShahid/payment-remainder#readme",
+  "devDependencies": {
+    "@types/node": "^18.0.0",
+    "typescript": "^4.7.4"
+  }
+}
