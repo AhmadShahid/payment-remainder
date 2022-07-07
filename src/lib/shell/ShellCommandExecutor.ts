@@ -1,5 +1,5 @@
 import { spawn } from 'child_process';
-import { ICommandOption, IShellCommandExecutor } from './IShellExecutor';
+import { ICommandOption, IShellCommandExecutor } from './IShellCommandExecutor';
 
 export class ShellCommandExecutor implements IShellCommandExecutor {
     private commandOption: ICommandOption;
@@ -10,6 +10,10 @@ export class ShellCommandExecutor implements IShellCommandExecutor {
 
     execute(): Promise<string> {
         return new Promise((resolve, reject) => {
+            if (!this.commandOption.command) {
+                reject('Error: No command found please specify command');
+            }
+
             const spwanProcessInfo = spawn(this.commandOption.command, this.commandOption.args, {
                 cwd: __dirname,
             });
