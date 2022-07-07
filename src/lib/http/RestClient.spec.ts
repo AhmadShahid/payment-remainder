@@ -11,14 +11,14 @@ describe('RestClient', () => {
     });
 
     it('creates a resource', async () => {
-        let res: any = { name: 'foo' };
-        let restRes = await restClient.create('/post', res);
+        const res: unknown = { name: 'foo' };
+        const restRes = await restClient.create('/post', res);
         expect(restRes.statusCode).toBe(200);
     });
 
     it('Should throw 404', async () => {
-        let res: any = { name: 'foo' };
-        let restRes = await restClient.create('/postss', res);
+        const res: unknown = { name: 'foo' };
+        const restRes = await restClient.create('/postss', res);
         expect(restRes.statusCode).toBe(404);
     });
 });

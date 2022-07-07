@@ -45,17 +45,17 @@ export class RestClient {
         if (baseUrl) this.baseUrl = baseUrl;
     }
 
-    public async create<T>(resource: string, body: any, options?: IRestClientOption): Promise<IResponse<T>> {
-        let url: string = util.getUrl(resource, this.baseUrl);
-        let headers: IHeaders = this._headersFromOptions(options);
+    public async create<T>(resource: string, body: unknown, options?: IRestClientOption): Promise<IResponse<T>> {
+        const url: string = util.getUrl(resource, this.baseUrl);
+        const headers: IHeaders = this._headersFromOptions(options);
 
-        let data: string = JSON.stringify(body, null, 2);
-        let res: HttpClientResponse = await this.client.post(url, data, headers);
+        const data: string = JSON.stringify(body, null, 2);
+        const res: HttpClientResponse = await this.client.post(url, data, headers);
         return this.processResponse<T>(res);
     }
 
     private _headersFromOptions(options: IRestClientOption = {}): IHeaders {
-        let headers: IHeaders = options.additionalHeaders || {};
+        const headers: IHeaders = options.additionalHeaders || {};
         headers['Accept'] = options.acceptHeader || 'application/json';
         headers['Content-Type'] = 'application/json; charset=utf-8';
 
@@ -83,7 +83,7 @@ export class RestClient {
             try {
                 response.headers = res.message.headers;
                 if (statusCode && statusCode > 299) {
-                    let msg: string = 'Failed request: (' + statusCode + ')';
+                    const msg: string = 'Failed request: (' + statusCode + ')';
                     reject(msg);
                 } else {
                     contents = await res.readBody();

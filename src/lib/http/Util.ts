@@ -5,7 +5,7 @@ export function parseUrl(requestUrl: string): url.Url {
     return url.parse(requestUrl);
 }
 export function isHttps(requestUrl: string) {
-    let parsedUrl: url.Url = parseUrl(requestUrl);
+    const parsedUrl: url.Url = parseUrl(requestUrl);
     return parsedUrl.protocol === 'https:';
 }
 

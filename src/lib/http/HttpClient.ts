@@ -47,7 +47,7 @@ export class HttpClient implements IHttpClient {
     ): Promise<IHttpClientResponse> {
         const info: IHttpRequest = this.prepareRequest(verb, requestUrl, headers);
         return new Promise<IHttpClientResponse>((resolve, reject) => {
-            let callbackForResult = function (err: any, res: IHttpClientResponse) {
+            const callbackForResult = function (err: unknown, res: IHttpClientResponse) {
                 if (err) {
                     reject(err);
                 }
@@ -62,11 +62,11 @@ export class HttpClient implements IHttpClient {
     private requestWithCallback(
         info: IHttpRequest,
         data: string | NodeJS.ReadableStream,
-        onResult: (err: any, res: IHttpClientResponse) => void,
+        onResult: (err: unknown, res: IHttpClientResponse) => void,
     ): void {
         try {
-            let req: http.ClientRequest = info.httpModule.request(info.options, (msg: http.IncomingMessage) => {
-                let res: HttpClientResponse = new HttpClientResponse(msg);
+            const req: http.ClientRequest = info.httpModule.request(info.options, (msg: http.IncomingMessage) => {
+                const res: HttpClientResponse = new HttpClientResponse(msg);
                 onResult(null, res);
             });
 
