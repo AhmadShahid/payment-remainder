@@ -26,7 +26,7 @@ describe('ShellCommandExecutor', () => {
 
     it('promise reject  error if command is null', async () => {
         const shellExecutor = new ShellCommandExecutor(getCommandOption(''));
-        const errorMsg = shellExecutor.execute().catch((e) => {
+        shellExecutor.execute().catch((e) => {
             expect(e).toMatch('Error: No command found please specify command');
         });
     });
