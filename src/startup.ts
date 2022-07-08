@@ -2,6 +2,7 @@ import { ICommandOption } from './lib/shell';
 import { ShellCommandExecutor } from './lib/shell';
 import { RestClient } from './lib/http';
 import path from 'path';
+import { Config } from './config/config';
 
 export class Startup {
     public async Start(): Promise<void> {
@@ -13,7 +14,7 @@ export class Startup {
             const spawnProcessinfo = shellExecutor.execute();
             console.log('spawninfo', spawnProcessinfo);
 
-            const restClient = new RestClient('http://localhost:9090');
+            const restClient = new RestClient(Config.API_URL);
             const student = await restClient.create('/messages', {
                 email: 'vdaybell0@seattletimes.com',
                 text: 'Hi Vincenty, your invoice about $1.99 is due.',
