@@ -6,7 +6,6 @@ export class CsvReader implements IReader {
     public csvFilePath: string;
 
     constructor(csvFilePath: string) {
-        console.log(csvFilePath);
         if (!csvFilePath) {
             throw new Error('file not found please specify correct path');
         }

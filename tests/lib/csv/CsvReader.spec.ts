@@ -5,20 +5,24 @@ import { CsvReader } from '../../../src/lib/csv/CsvReader';
 describe('CsvReader', () => {
     let csvReader: IReader;
     beforeEach(async () => {
-        csvReader = new CsvReader(path.resolve(__dirname, 'assets/customers.csv'));
+        csvReader = new CsvReader(path.resolve(process.cwd(), 'assets/customers.csv'));
     });
 
     it('should be defined', () => {
         expect(csvReader).toBeDefined();
     });
 
-    it('file not found', async () => {
-        const csvReader = new CsvReader(`${process.env.PWD}/assets/customers.csv`);
-        expect(csvReader.getData()).toThrowError('file not found please specify correct path');
+    it("should throw Error with message 'file not found please specify correct path' when no params were passed", async () => {
+        try {
+            csvReader = new CsvReader('');
+        } catch (e: unknown) {
+            const error = <Error>e;
+            expect(error.message).toBe('file not found please specify correct path');
+        }
     });
 
-    it('read file succesfully', async () => {
-        const results = csvReader.getData();
-        expect(results).resolves.not.toThrow();
+    it('should read csv succesfully', async () => {
+        const results = await csvReader.getData();
+        expect(results.length).toBe(5);
     });
 });
