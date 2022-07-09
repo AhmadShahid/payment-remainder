@@ -1,11 +1,7 @@
-import { Startup } from './startup';
+import { App } from './App';
 
 const boostrapApp = async () => {
-    try {
-        new Startup().Start();
-    } catch (ex) {
-        console.error(ex);
-    }
+    new App().init();
 };
 
 boostrapApp();

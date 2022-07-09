@@ -1,4 +1,4 @@
-import { RestClient } from './RestClient';
+import { RestClient } from '../../../src/lib/http';
 
 describe('RestClient', () => {
     let restClient: RestClient;

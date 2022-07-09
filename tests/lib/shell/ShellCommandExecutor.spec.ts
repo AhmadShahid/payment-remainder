@@ -1,5 +1,5 @@
-import { ICommandOption, IShellCommandExecutor } from './IShellCommandExecutor';
-import { ShellCommandExecutor } from './ShellCommandExecutor';
+import { ICommandOption, IShellCommandExecutor } from '../../../src/lib/shell';
+import { ShellCommandExecutor } from '../../../src/lib/shell';
 
 const getCommandOption = (command: string) => {
     return <ICommandOption>{
