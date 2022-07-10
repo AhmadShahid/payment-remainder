@@ -25,12 +25,12 @@ export class App {
         return csvReader.getData<ICustomer>();
     }
 
-    private async startService() {
+    private async startService(): Promise<string> {
         const shellExecutor = new ShellCommandExecutor(<ICommandOption>{
-            command: path.resolve(__dirname, `bin/commservice.windows`),
+            command: this.getBinaryCommand(),
             args: [],
         });
-        await shellExecutor.execute();
+        return shellExecutor.execute();
     }
 
     private async sendHttpRequest(email: string, text: string): Promise<IResponse<IAPIMessageResponse>> {
@@ -75,7 +75,7 @@ export class App {
         }
     }
 
-    private listenProcessEvents() {
+    private listenProcessEvents(): void {
         process.on('SIGTERM', function () {
             console.log('Caught SIGTERM signal');
         });
@@ -85,12 +85,29 @@ export class App {
         });
     }
 
-    private clearTimers(paymentRemaindersMap: Map<string, NodeJS.Timeout[]>) {
+    private clearTimers(paymentRemaindersMap: Map<string, NodeJS.Timeout[]>): void {
         // console.log(`Unscheduling ${paymentRemaindersMap.entries().length} reminders.\n`);
         for (const paymentRemainder of paymentRemaindersMap.entries()) {
             for (const iterator of paymentRemainder[1]) {
                 clearTimeout(iterator);
             }
         }
+    }
+
+    private getBinaryCommand(): string {
+        let osBinaryCommandPath;
+        switch (process.platform) {
+            case 'win32':
+                osBinaryCommandPath = path.resolve(__dirname, `bin/commservice.windows`);
+                break;
+            case 'linux':
+                osBinaryCommandPath = path.resolve(__dirname, `bin/commservice.linux`);
+            case 'darwin':
+                osBinaryCommandPath = path.resolve(__dirname, `bin/commservice.mac`);
+            default:
+                osBinaryCommandPath = path.resolve(__dirname, `bin/commservice.windows`);
+                break;
+        }
+        return osBinaryCommandPath;
     }
 }
