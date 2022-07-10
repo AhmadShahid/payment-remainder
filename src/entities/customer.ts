@@ -1,5 +1,11 @@
 interface ICustomer {
     email: string;
     text: string;
-    scheule: string;
+    schedule: string;
+}
+
+interface IAPIMessageResponse {
+    email: string;
+    text: string;
+    paid: boolean;
 }

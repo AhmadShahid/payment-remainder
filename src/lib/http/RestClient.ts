@@ -8,6 +8,7 @@ import * as util from './Util';
 
 export enum HttpCodes {
     OK = 200,
+    Created = 201,
     MultipleChoices = 300,
     MovedPermanently = 301,
     ResourceMoved = 302,
@@ -48,7 +49,8 @@ export class RestClient {
     public async create<T>(resource: string, body: unknown, options?: IRestClientOption): Promise<IResponse<T>> {
         const url: string = util.getUrl(resource, this.baseUrl);
         const headers: IHeaders = this._headersFromOptions(options);
-
+        console.log(`URLLLLL`, resource);
+        // console.log(headers);
         const data: string = JSON.stringify(body, null, 2);
         const res: HttpClientResponse = await this.client.post(url, data, headers);
         return this.processResponse<T>(res);

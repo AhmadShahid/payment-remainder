@@ -5,6 +5,7 @@
     "main": "index.js",
     "scripts": {
         "start": "node dist/index.js",
+        "start:dev": "npm run build && node dist/index.js",
         "clean": "rimraf coverage  dist",
         "copy-files": "copyfiles -u 1 bin/*  dist/bin/ && copyfiles -u 1 assets/*  dist/assets/ && copyfiles -a *.env  dist/",
         "lint": "eslint . --ext .ts",
@@ -52,6 +53,7 @@
     },
     "dependencies": {
         "csv-parse": "^5.2.2",
-        "csv-parser": "^3.0.0"
+        "csv-parser": "^3.0.0",
+        "dotenv": "^16.0.1"
     }
 }
