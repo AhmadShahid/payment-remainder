@@ -1,10 +1,10 @@
-interface ICustomer {
+export interface ICustomer {
     email: string;
     text: string;
     schedule: string;
 }
 
-interface IAPIMessageResponse {
+export interface IAPIMessageResponse {
     email: string;
     text: string;
     paid: boolean;

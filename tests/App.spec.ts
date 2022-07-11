@@ -7,7 +7,7 @@ describe('App', () => {
     beforeEach(async () => {
         mockRemainderService = <IInvoiceRemainderService>{
             sendRemainderToCustomers: jest.fn().mockImplementation(() => Promise.resolve()),
-            killProcess: jest.fn().mockResolvedValueOnce({}),
+            kill: jest.fn().mockResolvedValueOnce({}),
         };
         app = new App(mockRemainderService);
     });

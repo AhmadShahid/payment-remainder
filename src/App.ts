@@ -17,7 +17,7 @@ export class App {
 
     private handleGracefullyShutDownProcess(): void {
         process.on('SIGINT', () => {
-            this.remainderService.killProcess();
+            this.remainderService.kill();
         });
     }
 

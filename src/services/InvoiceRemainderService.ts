@@ -9,19 +9,14 @@ import { IResponse } from '../lib/http/contracts/IResponse';
 import { sleep, getBinaryCommand } from '../util';
 import { Logger } from '../helpers/Logger';
 import { getShellCommandExecutor } from '../lib/shell';
+import { IAPIMessageResponse, ICustomer } from '../entities/customer';
 
 export class InvoiceRemainderService implements IInvoiceRemainderService {
     constructor(
         private readonly shellCommandExecutor: IShellCommandExecutor,
         private readonly csvReader: IReader,
         private restClient: IRestClient,
-    ) {
-        this.shellCommandExecutor = new ShellCommandExecutor(<ICommandOption>{
-            command: getBinaryCommand(),
-            args: [],
-        });
-        this.restClient = new RestClient(Config.API_URL);
-    }
+    ) {}
 
     async sendRemainderToCustomers(): Promise<void> {
         const processOutput = await this.startService();
@@ -33,7 +28,7 @@ export class InvoiceRemainderService implements IInvoiceRemainderService {
         Logger.log('--------------- Press control + C to stop  app and see results ---------------');
     }
 
-    killProcess(): void {
+    kill(): void {
         this.shellCommandExecutor.kill();
     }
 
@@ -101,8 +96,8 @@ export class InvoiceRemainderService implements IInvoiceRemainderService {
             try {
                 await sleep(sleepTime);
                 process.nextTick(async () => {
-                    Logger.log(`${outputTime} : sending email to ${email} `);
                     const apiResponse = await this.sendHttpRequest(email, text);
+                    Logger.log(`${outputTime} : sending email to ${email} `);
                     resolve(apiResponse);
                 });
             } catch (err) {
