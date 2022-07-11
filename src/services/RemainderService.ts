@@ -132,8 +132,10 @@ export class RemainderService implements IRemainderService {
                 break;
             case 'linux':
                 osBinaryCommandPath = path.resolve(process.cwd(), `bin/commservice.linux`);
+                break;
             case 'darwin':
                 osBinaryCommandPath = path.resolve(process.cwd(), `bin/commservice.mac`);
+                break;
             default:
                 osBinaryCommandPath = path.resolve(process.cwd(), `bin/commservice.windows`);
                 break;
