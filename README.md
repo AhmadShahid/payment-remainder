@@ -9,6 +9,13 @@
     <a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
 </p>
 
+This app only uses one third-party library, which is needed to parse csv files.
+**[csv-parser](https://github.com/mafintosh/csv-parser)** is greased-lightning fast csv parser library that can convert CSV into JSON at at rate of around 90,000 rows per second.
+
+### Known issues:
+
+Sometimes the time is off by a few milliseconds. This is primarily due to the solution's usage of the'setTimeout' function, which is inaccurate due to Node.js/asynchronous javascript's nature.
+
 ### Clone repository
 
 To clone the repository, use the following commands:
