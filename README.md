@@ -1,31 +1,52 @@
 # collectai payment-remainder
 
-🏃🏽 Instant Value: All basic tools included and configured:
+<p align="center">
+  <h2>collectai payment-remainder</h2>
+</p>
 
--   [TypeScript][typescript] [4.7][typescript-4-7]
--   [ESLint][eslint] with some initial rules recommendation
--   [Jest][jest] for fast unit testing and code coverage
--   Type definitions for Node.js and Jest
--   [Prettier][prettier] to enforce consistent code style
--   NPM [scripts](#available-scripts) for common operations
--   Simple example of TypeScript code and unit test
--   .editorconfig for consistent file format
-
-🤲 Free as in speech: available under the APLv2 license.
-
-## Getting Started
-
-This project is intended to be used with the latest Active LTS release of [Node.js][nodejs].
+<p align="center">A Invoice Remainder based system that sends out reminders of unsettled invoices based on the specified schedule.</p>
+    <p align="center">
+    <a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
+</p>
 
 ### Clone repository
 
 To clone the repository, use the following commands:
 
-```sh
+```bash
 git clone https://github.com/AhmadShahid/payment-remainder.git
 cd payment-remainder
-npm install
-cp .env.example .env
+```
+
+## Installation
+
+```bash
+$ npm install
+```
+
+## Quick start
+
+-   You will need to have `Node.js` installed, this project has been tested with Node version [16.X](https://nodejs.org/en/blog/release/v12.22.1/) and [14.X](https://nodejs.org/en/blog/release/v14.17.5/)
+
+```bash
+# clone this repo
+$ git clone https://github.com/AhmadShahid/product-discount.git
+# go to payment-remainder dir
+$ cd payment-remainder
+# copy .env.example to .env for environment configuration
+$ cp .env.example .env
+# install dependencies
+$ npm install
+```
+
+## Running the app
+
+```bash
+# development
+$ npm run start:dev
+# production mode
+$ npm run build
+$ npm run start
 ```
 
 ## Available Scripts
@@ -41,7 +62,17 @@ cp .env.example .env
 -   `test` - run tests,
 -   `test:watch` - interactive watch mode to automatically re-run tests
 
-## Additional Information
+## What's the stack used in this project?
+
+-   **[TypeScript](https://www.typescriptlang.org/)** is a strongly typed programming language that builds on JavaScript, giving you better tooling at any scale.
+-   **[Eslint](https://eslint.org/)** is a static code analysis tool for identifying problematic patterns found in JavaScript code.
+-   **[Prettier](https://prettier.io/)** is to enforce consistent code style.
+-   **[Jest](https://facebook.github.io/jest/)** is a testing platform from Facebook Code. It's easy to configure and provides out-of-the-box mocking and code coverage reporting.
+
+## Stay in touch
+
+-   Author - [Shahid Ahmad]
+-   Twitter - [@shahid](https://twitter.com/shahida09454170)
 
 ## License
 
