@@ -1,27 +1,25 @@
 import { ShellCommandExecutor } from '../lib/shell';
 import { ICommandOption, IShellCommandExecutor } from '../lib/shell/IShellCommandExecutor';
-import { IRemainderService } from './IRemainderService';
-import path from 'path';
-import { IReader } from '../lib/csv/IReader';
-import { CsvReader } from '../lib/csv/CsvReader';
+import { IInvoiceRemainderService } from './IInvoiceRemainderService';
+import { getCsvReader, IReader } from '../lib/csv';
 import { RestClient } from '../lib/http';
-import { HttpCodes, IRestClient } from '../lib/http/RestClient';
+import { getRestClient, HttpCodes, IRestClient } from '../lib/http/RestClient';
 import { Config } from '../config/config';
 import { IResponse } from '../lib/http/contracts/IResponse';
-import { sleep } from '../util';
+import { sleep, getBinaryCommand } from '../util';
 import { Logger } from '../helpers/Logger';
+import { getShellCommandExecutor } from '../lib/shell';
 
-export class RemainderService implements IRemainderService {
-    private shellCommandExecutor: IShellCommandExecutor;
-    private csvReader: IReader;
-    private restClient: IRestClient;
-
-    constructor() {
+export class InvoiceRemainderService implements IInvoiceRemainderService {
+    constructor(
+        private readonly shellCommandExecutor: IShellCommandExecutor,
+        private readonly csvReader: IReader,
+        private restClient: IRestClient,
+    ) {
         this.shellCommandExecutor = new ShellCommandExecutor(<ICommandOption>{
-            command: this.getBinaryCommand(),
+            command: getBinaryCommand(),
             args: [],
         });
-        this.csvReader = new CsvReader(path.resolve(process.cwd(), 'assets/customers.csv'));
         this.restClient = new RestClient(Config.API_URL);
     }
 
@@ -123,25 +121,7 @@ export class RemainderService implements IRemainderService {
     private getCustomerSchedules(customer: ICustomer): number[] {
         return customer.schedule.split('-').map((timeInSeconds: string) => Number(timeInSeconds.slice(0, -1)));
     }
-
-    private getBinaryCommand(): string {
-        let osBinaryCommandPath;
-        switch (process.platform) {
-            case 'win32':
-                osBinaryCommandPath = path.resolve(process.cwd(), `bin/commservice.windows`);
-                break;
-            case 'linux':
-                osBinaryCommandPath = path.resolve(process.cwd(), `bin/commservice.linux`);
-                break;
-            case 'darwin':
-                osBinaryCommandPath = path.resolve(process.cwd(), `bin/commservice.mac`);
-                break;
-            default:
-                osBinaryCommandPath = path.resolve(process.cwd(), `bin/commservice.windows`);
-                break;
-        }
-        return osBinaryCommandPath;
-    }
 }
 
-export const getRemainderService = () => new RemainderService();
+export const getRemainderService = () =>
+    new InvoiceRemainderService(getShellCommandExecutor(), getCsvReader(), getRestClient());

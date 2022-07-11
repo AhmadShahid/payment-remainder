@@ -1,13 +1,8 @@
 import { Logger } from './helpers/Logger';
-import { IRemainderService } from './services/IRemainderService';
-import { RemainderService } from './services/RemainderService';
+import { IInvoiceRemainderService } from './services';
 
 export class App {
-    private readonly remainderService: IRemainderService;
-
-    constructor(remainderService: IRemainderService) {
-        this.remainderService = remainderService;
-    }
+    constructor(private readonly remainderService: IInvoiceRemainderService) {}
 
     public async init(): Promise<void> {
         try {

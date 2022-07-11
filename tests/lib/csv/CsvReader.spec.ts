@@ -1,6 +1,6 @@
 import path from 'path';
-import { IReader } from '../../../src/lib/csv/IReader';
-import { CsvReader } from '../../../src/lib/csv/CsvReader';
+import { IReader } from '../../../src/lib/csv';
+import { CsvReader } from '../../../src/lib/csv';
 
 describe('CsvReader', () => {
     let csvReader: IReader;

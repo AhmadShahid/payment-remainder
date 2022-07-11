@@ -1,3 +1,4 @@
+import { Config } from '../../config/config';
 import { IHeaders, IHttpClient } from './contracts/IHttpClient';
 import { IRequestOptions } from './contracts/IRequestOption';
 import { IResponse } from './contracts/IResponse';
@@ -83,3 +84,5 @@ export class RestClient implements IRestClient {
         });
     }
 }
+
+export const getRestClient = () => new RestClient(Config.API_URL);

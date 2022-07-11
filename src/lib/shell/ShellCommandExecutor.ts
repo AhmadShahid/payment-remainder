@@ -1,4 +1,5 @@
 import { spawn } from 'child_process';
+import { getBinaryCommand } from '../../util';
 import { Logger } from '../../helpers/Logger';
 import { ICommandOption, IShellCommandExecutor } from './IShellCommandExecutor';
 
@@ -39,3 +40,9 @@ export class ShellCommandExecutor implements IShellCommandExecutor {
         this.spwanProcessInfo.kill('SIGINT');
     }
 }
+
+export const getShellCommandExecutor = () =>
+    new ShellCommandExecutor(<ICommandOption>{
+        command: getBinaryCommand(),
+        args: [],
+    });

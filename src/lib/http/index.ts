@@ -1,2 +1,2 @@
-export { RestClient } from './RestClient';
+export { RestClient, getRestClient } from './RestClient';
 export { HttpClient } from './HttpClient';
