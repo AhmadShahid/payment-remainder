@@ -1,11 +1,5 @@
 # collectai payment-remainder
 
-[![TypeScript version][ts-badge]][typescript-4-7]
-[![Node.js version][nodejs-badge]][nodejs]
-[![Build Status - GitHub Actions][gha-badge]][gha-ci]
-
-👩🏻‍💻 Developer Ready: A comprehensive template. Works out of the box for most [Node.js][nodejs] projects.
-
 🏃🏽 Instant Value: All basic tools included and configured:
 
 -   [TypeScript][typescript] [4.7][typescript-4-7]
@@ -31,11 +25,8 @@ To clone the repository, use the following commands:
 git clone https://github.com/AhmadShahid/payment-remainder.git
 cd payment-remainder
 npm install
+cp .env.example .env
 ```
-
-### Download latest release
-
-Download and unzip the current **main** branch or one of the tags:
 
 ## Available Scripts
 
