@@ -8,11 +8,11 @@ import { IResponse } from '../../src/lib/http/contracts/IResponse';
 describe('InvoiceRemainderService', () => {
     let invoiceRemainderService: IInvoiceRemainderService;
     beforeEach(async () => {
-        let mockShellCommandExecutor = <IShellCommandExecutor>{
+        const mockShellCommandExecutor = <IShellCommandExecutor>{
             execute: jest.fn().mockImplementation(() => Promise.resolve('execute')),
             kill: jest.fn().mockImplementation(),
         };
-        let mockCsvReader = <IReader>{
+        const mockCsvReader = <IReader>{
             getData: jest.fn().mockImplementation(() =>
                 Promise.resolve(<ICustomer[]>[
                     {
@@ -24,7 +24,7 @@ describe('InvoiceRemainderService', () => {
             ),
         };
 
-        let mockRestClient = <IRestClient>{
+        const mockRestClient = <IRestClient>{
             create: jest.fn().mockImplementation(() =>
                 Promise.resolve(<IResponse<IAPIMessageResponse>>{
                     statusCode: 201,
