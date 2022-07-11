@@ -97,7 +97,7 @@ export class InvoiceRemainderService implements IInvoiceRemainderService {
                 await sleep(sleepTime);
                 process.nextTick(async () => {
                     const apiResponse = await this.sendHttpRequest(email, text);
-                    Logger.log(`${outputTime} : sending email to ${email} `);
+                    Logger.log(`${outputTime}s : sending email to ${email} `);
                     resolve(apiResponse);
                 });
             } catch (err) {
