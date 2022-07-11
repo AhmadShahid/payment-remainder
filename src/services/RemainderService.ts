@@ -25,7 +25,7 @@ export class RemainderService implements IRemainderService {
         this.restClient = new RestClient(Config.API_URL);
     }
 
-    async sendRemainderToCustomers() {
+    async sendRemainderToCustomers(): Promise<void> {
         const processOutput = await this.startService();
         Logger.log(processOutput);
         Logger.log('--------------- Reading customers.csv ---------------');
@@ -143,3 +143,5 @@ export class RemainderService implements IRemainderService {
         return osBinaryCommandPath;
     }
 }
+
+export const getRemainderService = () => new RemainderService();

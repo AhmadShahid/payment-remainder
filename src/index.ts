@@ -1,7 +1,8 @@
+import { getRemainderService } from './services/RemainderService';
 import { App } from './App';
 
 const boostrapApp = async () => {
-    new App().init();
+    new App(getRemainderService()).init();
 };
 
 boostrapApp();

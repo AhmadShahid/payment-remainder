@@ -19,9 +19,9 @@ describe('ShellCommandExecutor', () => {
         expect(shellExecutor).toBeDefined();
     });
 
-    it('execute shell command', async () => {
-        const processResult = shellExecutor.execute();
-        expect(processResult).resolves.not.toThrow();
+    it('should execute shell command', async () => {
+        const processResult = await shellExecutor.execute();
+        expect(processResult).toMatch('node: bad option: --module');
     });
 
     it('promise reject  error if command is null', async () => {

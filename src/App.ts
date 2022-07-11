@@ -3,10 +3,10 @@ import { IRemainderService } from './services/IRemainderService';
 import { RemainderService } from './services/RemainderService';
 
 export class App {
-    private remainderService: IRemainderService;
+    private readonly remainderService: IRemainderService;
 
-    constructor() {
-        this.remainderService = new RemainderService();
+    constructor(remainderService: IRemainderService) {
+        this.remainderService = remainderService;
     }
 
     public async init(): Promise<void> {

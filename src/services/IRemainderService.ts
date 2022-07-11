@@ -1,4 +1,4 @@
 export interface IRemainderService {
-    sendRemainderToCustomers(): any;
+    sendRemainderToCustomers(): Promise<void>;
     killProcess(): void;
 }
