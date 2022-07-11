@@ -6,7 +6,7 @@ export class CsvReader implements IReader {
     public csvFilePath: string;
 
     constructor(csvFilePath: string) {
-        if (!csvFilePath) {
+        if (!fs.existsSync(csvFilePath)) {
             throw new Error('file not found please specify correct path');
         }
         this.csvFilePath = csvFilePath;
