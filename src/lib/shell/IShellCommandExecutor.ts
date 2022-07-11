@@ -5,4 +5,5 @@ export interface ICommandOption {
 }
 export interface IShellCommandExecutor {
     execute(): Promise<string>;
+    kill(): void;
 }

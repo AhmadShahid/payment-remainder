@@ -9,35 +9,19 @@ import * as util from './Util';
 export enum HttpCodes {
     OK = 200,
     Created = 201,
-    MultipleChoices = 300,
-    MovedPermanently = 301,
-    ResourceMoved = 302,
-    SeeOther = 303,
-    NotModified = 304,
-    UseProxy = 305,
-    SwitchProxy = 306,
-    TemporaryRedirect = 307,
-    PermanentRedirect = 308,
     BadRequest = 400,
     Unauthorized = 401,
     PaymentRequired = 402,
     Forbidden = 403,
     NotFound = 404,
-    MethodNotAllowed = 405,
-    NotAcceptable = 406,
-    ProxyAuthenticationRequired = 407,
-    RequestTimeout = 408,
-    Conflict = 409,
-    Gone = 410,
-    TooManyRequests = 429,
     InternalServerError = 500,
-    NotImplemented = 501,
-    BadGateway = 502,
-    ServiceUnavailable = 503,
-    GatewayTimeout = 504,
 }
 
-export class RestClient {
+export interface IRestClient {
+    create<T>(resource: string, body: unknown, options?: IRestClientOption): Promise<IResponse<T>>;
+}
+
+export class RestClient implements IRestClient {
     baseUrl: string | undefined;
     client: IHttpClient;
 
@@ -49,9 +33,7 @@ export class RestClient {
     public async create<T>(resource: string, body: unknown, options?: IRestClientOption): Promise<IResponse<T>> {
         const url: string = util.getUrl(resource, this.baseUrl);
         const headers: IHeaders = this._headersFromOptions(options);
-        console.log(`URLLLLL`, resource);
-        // console.log(headers);
-        const data: string = JSON.stringify(body, null, 2);
+        const data: string = JSON.stringify(body);
         const res: HttpClientResponse = await this.client.post(url, data, headers);
         return this.processResponse<T>(res);
     }

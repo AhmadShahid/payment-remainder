@@ -1,113 +1,43 @@
-import { ICommandOption, ShellCommandExecutor } from './lib/shell';
-import path from 'path';
-import { Config } from './config/config';
-import { CsvReader } from './lib/csv/CsvReader';
-import { RestClient } from './lib/http';
-import { IResponse } from './lib/http/contracts/IResponse';
-import { HttpCodes } from './lib/http/RestClient';
+import { Logger } from './helpers/Logger';
+import { IRemainderService } from './services/IRemainderService';
+import { RemainderService } from './services/RemainderService';
 
 export class App {
+    private remainderService: IRemainderService;
+
+    constructor() {
+        this.remainderService = new RemainderService();
+    }
+
     public async init(): Promise<void> {
         try {
-            this.listenProcessEvents();
-            console.log(await this.startService());
-            const customers = await this.readCsv();
-            this.sendPaymentRemainders(customers);
-            console.log('all done');
-        } catch (ex) {
-            console.log(ex);
+            this.handleGracefullyShutDownProcess();
+            this.handleUnhandledRejection();
+            this.hanleUncaughtException();
+            await this.remainderService.sendRemainderToCustomers();
+        } catch (ex: any) {
+            Logger.error(ex.message);
         }
     }
 
-    private async readCsv(): Promise<ICustomer[]> {
-        const csvFilePath = path.resolve(__dirname, 'assets/customers.csv');
-        const csvReader = new CsvReader(csvFilePath);
-        return csvReader.getData<ICustomer>();
-    }
-
-    private async startService(): Promise<string> {
-        const shellExecutor = new ShellCommandExecutor(<ICommandOption>{
-            command: this.getBinaryCommand(),
-            args: [],
-        });
-        return shellExecutor.execute();
-    }
-
-    private async sendHttpRequest(email: string, text: string): Promise<IResponse<IAPIMessageResponse>> {
-        const restClient = new RestClient(Config.API_URL);
-        return restClient.create<IAPIMessageResponse>('/messages', {
-            email: email,
-            text: text,
+    private handleGracefullyShutDownProcess(): void {
+        process.on('SIGINT', () => {
+            this.remainderService.killProcess();
         });
     }
 
-    private sendPaymentRemainders(customers: ICustomer[]): void {
-        const paymentRemaindersMap = new Map<string, NodeJS.Timeout[]>();
-        for (const customer of customers) {
-            const timeIntervals = [];
-            const remainderSchedules = customer.schedule.split('-').map((val) => val.replace(/s$/i, ''));
-            for (const schedule of remainderSchedules) {
-                const timeInterval = setTimeout(
-                    async (prop) => {
-                        const apiResponse = await this.sendHttpRequest(prop.email, prop.text);
-                        if (apiResponse && apiResponse.statusCode === HttpCodes.Created) {
-                            if (apiResponse.result && apiResponse.result.paid) {
-                                console.log(`Paid No more remiders for \`${apiResponse.result.email}\`.`);
-                                console.log(paymentRemaindersMap);
-                                this.clearTimers(paymentRemaindersMap);
-                                return;
-                            }
-                        }
-
-                        clearTimeout(schedule);
-                        paymentRemaindersMap.delete(`${schedule}_${customer.email}`);
-                    },
-                    +schedule * 1000,
-                    {
-                        text: customer.text,
-                        email: customer.email,
-                    },
-                );
-
-                timeIntervals.push(timeInterval);
-            }
-            paymentRemaindersMap.set(`${customer.email}`, timeIntervals);
-        }
-    }
-
-    private listenProcessEvents(): void {
-        process.on('SIGTERM', function () {
-            console.log('Caught SIGTERM signal');
-        });
-
-        process.on('SIGINT', function () {
-            console.log('Caught interrupt signal');
+    private handleUnhandledRejection() {
+        process.on('unhandledRejection', (err: Error) => {
+            Logger.error(`Unhandled Promise Rejection: reason: ${err.message}`);
+            Logger.error(err.stack);
         });
     }
 
-    private clearTimers(paymentRemaindersMap: Map<string, NodeJS.Timeout[]>): void {
-        // console.log(`Unscheduling ${paymentRemaindersMap.entries().length} reminders.\n`);
-        for (const paymentRemainder of paymentRemaindersMap.entries()) {
-            for (const iterator of paymentRemainder[1]) {
-                clearTimeout(iterator);
-            }
-        }
-    }
-
-    private getBinaryCommand(): string {
-        let osBinaryCommandPath;
-        switch (process.platform) {
-            case 'win32':
-                osBinaryCommandPath = path.resolve(__dirname, `bin/commservice.windows`);
-                break;
-            case 'linux':
-                osBinaryCommandPath = path.resolve(__dirname, `bin/commservice.linux`);
-            case 'darwin':
-                osBinaryCommandPath = path.resolve(__dirname, `bin/commservice.mac`);
-            default:
-                osBinaryCommandPath = path.resolve(__dirname, `bin/commservice.windows`);
-                break;
-        }
-        return osBinaryCommandPath;
+    private hanleUncaughtException() {
+        process.on('uncaughtException', function (err: Error) {
+            Logger.error(`UncaughtException: ${err.message}`);
+            Logger.error(err.stack);
+            process.exit(0);
+        });
     }
 }

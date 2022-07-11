@@ -25,7 +25,5 @@ export function getUrl(resource: string, baseUrl?: string): string {
     } else {
         requestUrl = `${baseUrl}${resource}`;
     }
-    console.log(baseUrl);
-    console.log('requesturl', requestUrl);
     return requestUrl;
 }

@@ -1,8 +1,10 @@
 import { spawn } from 'child_process';
+import { Logger } from '../../helpers/Logger';
 import { ICommandOption, IShellCommandExecutor } from './IShellCommandExecutor';
 
 export class ShellCommandExecutor implements IShellCommandExecutor {
     private commandOption: ICommandOption;
+    private spwanProcessInfo: any;
 
     constructor(commandOption: ICommandOption) {
         this.commandOption = commandOption;
@@ -14,22 +16,26 @@ export class ShellCommandExecutor implements IShellCommandExecutor {
                 reject('Error: No command found please specify command');
             }
 
-            const spwanProcessInfo = spawn(this.commandOption.command, this.commandOption.args, {
+            this.spwanProcessInfo = spawn(this.commandOption.command, this.commandOption.args, {
                 cwd: __dirname,
             });
 
-            spwanProcessInfo.stdout.on('data', (data) => {
-                console.log('data', data.toString());
+            this.spwanProcessInfo.stdout.on('data', (data: any) => {
+                Logger.log(data.toString());
                 resolve(data.toString());
             });
 
-            spwanProcessInfo.stderr.on('data', (data) => {
+            this.spwanProcessInfo.stderr.on('data', (data: any) => {
                 resolve(data.toString());
             });
 
-            spwanProcessInfo.on('error', (err) => {
+            this.spwanProcessInfo.on('error', (err: any) => {
                 reject(err);
             });
         });
+    }
+
+    kill(): void {
+        this.spwanProcessInfo.kill('SIGINT');
     }
 }
