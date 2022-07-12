@@ -8,7 +8,7 @@ export class App {
         try {
             this.handleGracefullyShutDownProcess();
             this.handleUnhandledRejection();
-            this.hanleUncaughtException();
+            this.handleUncaughtException();
             await this.remainderService.sendRemainderToCustomers();
         } catch (ex: any) {
             Logger.error(ex.message);
@@ -28,7 +28,7 @@ export class App {
         });
     }
 
-    private hanleUncaughtException() {
+    private handleUncaughtException() {
         process.on('uncaughtException', function (err: Error) {
             Logger.error(`UncaughtException: ${err.message}`);
             Logger.error(err.stack);
