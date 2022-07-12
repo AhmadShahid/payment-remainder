@@ -1,7 +1,7 @@
-# collectai payment-remainder
+# collectAI payment-remainder
 
 <p align="center">
-  <h2>collectai payment-remainder</h2>
+  <h2>collectAI payment-remainder</h2>
 </p>
 
 <p align="center">A Invoice Remainder based system that sends out reminders of unsettled invoices based on the specified schedule.</p>
@@ -59,7 +59,7 @@ $ npm run start
 ## Available Scripts
 
 -   `start` - run project in production environment,
--   `start:dev` - run project in dev environement,
+-   `start:dev` - run project in dev environment,
 -   `clean` - remove coverage data, Jest cache and transpiled files,
 -   `prebuild` - lint source files and tests before building,
 -   `build` - transpile TypeScript to ES6,

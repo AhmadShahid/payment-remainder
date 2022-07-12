@@ -21,7 +21,7 @@ describe('CsvReader', () => {
         }
     });
 
-    it('should read csv succesfully', async () => {
+    it('should read csv successfully', async () => {
         const results = await csvReader.getData();
         expect(results.length).toBe(5);
     });
