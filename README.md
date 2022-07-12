@@ -44,6 +44,9 @@ $ cd payment-remainder
 $ cp .env.example .env
 # install dependencies
 $ npm install
+
+# Try to give all permission to your bin folder with below command to avoid EAccess issue on both linux and MacBook Platforms
+chmod -R 777 /bin
 ```
 
 ## Running the app
