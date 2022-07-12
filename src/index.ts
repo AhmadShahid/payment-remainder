@@ -1,8 +1,8 @@
 import { App } from './App';
 import { getRemainderService } from './services';
 
-const boostrapApp = async () => {
+const bootstrapApp = async () => {
     new App(getRemainderService()).init();
 };
 
-boostrapApp();
+bootstrapApp();
