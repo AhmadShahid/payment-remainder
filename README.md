@@ -33,7 +33,7 @@ $ npm install
 
 ## Quick start
 
--   You will need to have `Node.js` installed, this project has been tested with Node version [16.X](https://nodejs.org/en/blog/release/v12.22.1/) and [14.X](https://nodejs.org/en/blog/release/v14.17.5/)
+-   You will need to have `Node.js` installed, this project has been tested with Node version [16.X](https://nodejs.org/en/blog/release/v12.22.1/), [14.X](https://nodejs.org/en/blog/release/v14.17.5/) and [12.X](https://nodejs.org/en/blog/release/v12.20.2/) 
 
 ```bash
 # clone this repo
@@ -45,7 +45,7 @@ $ cp .env.example .env
 # install dependencies
 $ npm install
 
-# Try to give all permission to your bin folder with below command to avoid EAccess issue on both linux and MacBook Platforms
+# Try to give read and write permissions to your bin folder with below command to avoid EAccess issue on both linux and MacBook Platforms
 chmod -R 755 dist/bin
 ```
 
