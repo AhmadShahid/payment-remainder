@@ -1,5 +1,5 @@
 import { spawn } from 'child_process';
-import { getBinaryCommand } from '../../util';
+import { getBinaryCommand } from '../../Util';
 import { Logger } from '../../helpers/Logger';
 import { ICommandOption, IShellCommandExecutor } from './IShellCommandExecutor';
 

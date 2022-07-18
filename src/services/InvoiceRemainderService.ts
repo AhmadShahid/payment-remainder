@@ -6,7 +6,7 @@ import { RestClient } from '../lib/http';
 import { getRestClient, HttpCodes, IRestClient } from '../lib/http/RestClient';
 import { Config } from '../config/config';
 import { IResponse } from '../lib/http/contracts/IResponse';
-import { sleep, getBinaryCommand } from '../util';
+import { sleep, getBinaryCommand } from '../Util';
 import { Logger } from '../helpers/Logger';
 import { getShellCommandExecutor } from '../lib/shell';
 import { IAPIMessageResponse, ICustomer } from '../entities/customer';
