@@ -46,7 +46,7 @@ $ cp .env.example .env
 $ npm install
 
 # Try to give all permission to your bin folder with below command to avoid EAccess issue on both linux and MacBook Platforms
-chmod -R 777 /bin
+chmod -R 755 dist/bin
 ```
 
 ## Running the app
@@ -54,6 +54,7 @@ chmod -R 777 /bin
 ```bash
 # development
 $ npm run start:dev
+
 # production mode
 $ npm run build
 $ npm run start
