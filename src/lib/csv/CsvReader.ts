@@ -2,6 +2,7 @@ import { IReader } from './IReader';
 import * as fs from 'fs';
 import csv from 'csv-parser';
 import path from 'path';
+import { APP_PATH } from '../../RootPath';
 
 export class CsvReader implements IReader {
     public csvFilePath: string;
@@ -29,4 +30,4 @@ export class CsvReader implements IReader {
     }
 }
 
-export const getCsvReader = () => new CsvReader(path.resolve(process.cwd(), 'assets/customers.csv'));
+export const getCsvReader = () => new CsvReader(path.resolve(APP_PATH, 'assets/customers.csv'));
