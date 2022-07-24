@@ -37,7 +37,7 @@ $ npm install
 
 ```bash
 # clone this repo
-$ git clone https://github.com/AhmadShahid/product-discount.git
+$ git clone https://github.com/AhmadShahid/payment-remainder.git
 # go to payment-remainder dir
 $ cd payment-remainder
 # copy .env.example to .env for environment configuration
